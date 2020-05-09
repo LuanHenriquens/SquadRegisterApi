@@ -68,5 +68,18 @@ namespace SquadRegisterApi.Controllers
                 return UnprocessableEntity(ex.GetInnerException());
             }
         }
+
+        [HttpDelete]
+                public async Task<ActionResult<Squad>> Delete(int id)
+        {
+            try
+            {
+                return Ok(await this._service.Delete(id));
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex.GetInnerException());
+            }
+        }
     }
 }

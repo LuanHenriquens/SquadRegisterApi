@@ -10,5 +10,6 @@ namespace SquadRegisterApi.Services.Contracts
          Task<List<Squad>> GetByName(string name);
          Task<List<Squad>> GetAll();
          Task<Squad> Update(Squad squad);
+         Task<Squad> Delete(int id);
     }
 }

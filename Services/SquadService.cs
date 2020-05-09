@@ -97,5 +97,28 @@ namespace SquadRegisterApi.Services
                 throw new Exception(ex.GetInnerException());
             }
         }
+
+        public async Task<Squad> Delete(int id)
+        {
+            try
+            {
+                if(string.IsNullOrEmpty(id.ToString()) || id <= 0)
+                    throw new ValidationException("The id property cannot be null, empty or 0.");
+
+                var squad = await this._context.Squad.Where(c => c.id == id).FirstOrDefaultAsync();
+
+                if(squad == null)
+                    throw new ValidationException("Squad not found.");
+
+                this._context.Squad.Remove(squad);
+                await this._context.SaveChangesAsync();
+
+                return squad;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.GetInnerException());
+            }
+        }
     }
 }
