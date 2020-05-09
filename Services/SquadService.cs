@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using SquadRegisterApi.Auxiliar;
 using SquadRegisterApi.Data;
@@ -19,7 +20,13 @@ namespace SquadRegisterApi.Services
         {
             try
             {
-                squad.create_date = DateTime.Now;
+                if (string.IsNullOrEmpty(squad.name))
+                    throw new ValidationException("The name property cannot be null or empty");
+                    
+                if (string.IsNullOrEmpty(squad.description))
+                    throw new ValidationException("The description property cannot be null or empty");
+
+                    squad.create_date = DateTime.Now;
 
                 await this._context.Squad.AddAsync(squad);
                 await this._context.SaveChangesAsync();
