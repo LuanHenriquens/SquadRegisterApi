@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SquadRegisterApi.Data;
+using SquadRegisterApi.Services;
+using SquadRegisterApi.Services.Contracts;
 
 namespace SquadRegisterApi
 {
@@ -26,6 +30,18 @@ namespace SquadRegisterApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddEntityFrameworkNpgsql()
+             .AddDbContext<Context>(options => options.UseNpgsql(Configuration.GetConnectionString("DB")));
+            services.AddScoped<Context, Context>();
+
+            services = Container(services);
+        }
+
+        private IServiceCollection Container(IServiceCollection services)
+        {
+            services.AddScoped<ISquadService, SquadService>();
+            return services;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
