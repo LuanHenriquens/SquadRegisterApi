@@ -29,12 +29,26 @@ namespace SquadRegisterApi.Controllers
                 return UnprocessableEntity(ex.GetInnerException());
             }
         }
-        [HttpGet]
+
+        [HttpGet("GetByName")]
         public async Task<ActionResult<Squad>> GetByName(string name)
         {
             try
             {
                 return Ok(await this._service.GetByName(name));
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex.GetInnerException());
+            }
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<Squad>> GetAll()
+        {
+            try
+            {
+                return Ok(await this._service.GetAll());
             }
             catch (Exception ex)
             {
