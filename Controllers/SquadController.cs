@@ -55,5 +55,18 @@ namespace SquadRegisterApi.Controllers
                 return UnprocessableEntity(ex.GetInnerException());
             }
         }
+
+        [HttpPut]
+        public async Task<ActionResult<Squad>> Update(Squad squad)
+        {
+            try
+            {
+                return Ok(await this._service.Update(squad));
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex.GetInnerException());
+            }
+        }
     }
 }
