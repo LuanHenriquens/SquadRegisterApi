@@ -14,11 +14,11 @@ namespace SquadRegisterApi.Controllers
         private readonly IMemberService _service;
         public MemberController(IMemberService _service)
         {
-            this._service = _service;            
+            this._service = _service;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Member>> Insert(Member member)
+        public async Task<ActionResult<Member>> Insert([FromBody] Member member)
         {
             try
             {
@@ -29,5 +29,19 @@ namespace SquadRegisterApi.Controllers
                 return UnprocessableEntity(ex.GetInnerException());
             }
         }
+
+        [HttpGet("GetByName")]
+        public async Task<ActionResult<Member>> GetByName(string name)
+        {
+            try
+            {
+                return Ok(await this._service.GetByName(name));
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex.GetInnerException());
+            }
+        }
+
     }
 }
