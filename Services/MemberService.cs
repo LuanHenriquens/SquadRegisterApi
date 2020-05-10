@@ -77,5 +77,31 @@ namespace SquadRegisterApi.Services
                 throw new Exception(ex.GetInnerException());
             }
         }
+
+        public async Task<Member> Update(Member member)
+        {
+            if (member == null)
+                throw new ValidationException("The member object cannot be null.");
+
+            if (string.IsNullOrEmpty(member.name))
+                throw new ValidationException("The name property cannot be null or empty.");
+
+            if (string.IsNullOrEmpty(member.function))
+                throw new ValidationException("The description property cannot be null or empty.");
+
+            if (string.IsNullOrEmpty(member.squad_id.ToString()) || member.squad_id <= 0)
+                throw new ValidationException("The squad_id property cannot be null, empty or 0.");
+
+            var squad = await this._context.Squad.FirstOrDefaultAsync(c => c.id == member.squad_id);
+
+            if (squad == null)
+                throw new ValidationException("Invalid squad.");
+
+
+            this._context.Member.Update(member);
+            await this._context.SaveChangesAsync();
+
+            return member;
+        }
     }
 }

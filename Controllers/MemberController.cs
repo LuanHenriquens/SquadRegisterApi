@@ -56,5 +56,18 @@ namespace SquadRegisterApi.Controllers
             }
         }
 
+        [HttpPut]
+        public async Task<ActionResult<Member>> Update([FromBody] Member member)
+        {
+            try
+            {
+                return Ok(await this._service.Update(member));
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex.GetInnerException());
+            }
+        }
+
     }
 }
