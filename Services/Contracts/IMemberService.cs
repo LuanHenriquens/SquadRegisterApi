@@ -8,5 +8,6 @@ namespace SquadRegisterApi.Services.Contracts
     {
          Task<Member> Insert(Member member);
          Task<List<Member>> GetByName(string name);
+         Task<List<Member>> GetAll();
     }
 }

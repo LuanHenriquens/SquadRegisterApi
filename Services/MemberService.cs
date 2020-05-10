@@ -29,12 +29,12 @@ namespace SquadRegisterApi.Services
                 if (string.IsNullOrEmpty(member.function))
                     throw new ValidationException("The function property cannot be null or empty");
 
-                if(string.IsNullOrEmpty(member.squad_id.ToString()) || member.squad_id <= 0)
+                if (string.IsNullOrEmpty(member.squad_id.ToString()) || member.squad_id <= 0)
                     throw new ValidationException("The squad_id property cannot be null, empty or 0.");
-                
+
                 var squad = await this._context.Squad.FirstOrDefaultAsync(c => c.id == member.squad_id);
 
-                if(squad == null)
+                if (squad == null)
                     throw new ValidationException("Invalid squad.");
 
                 member.create_date = DateTime.Now;
@@ -54,11 +54,23 @@ namespace SquadRegisterApi.Services
         public async Task<List<Member>> GetByName(string name)
         {
             try
-            { 
-                if(name == null)
+            {
+                if (name == null)
                     throw new ValidationException("The name property cannot be null.");
 
                 return await this._context.Member.Where(c => c.name.Contains(name)).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.GetInnerException());
+            }
+        }
+
+        public async Task<List<Member>> GetAll()
+        {
+            try
+            {
+                return await this._context.Member.ToListAsync();
             }
             catch (Exception ex)
             {

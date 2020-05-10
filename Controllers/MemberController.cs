@@ -43,5 +43,18 @@ namespace SquadRegisterApi.Controllers
             }
         }
 
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<Member>> GetAll()
+        {
+            try
+            {
+                return Ok(await this._service.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return UnprocessableEntity(ex.GetInnerException());
+            }
+        }
+
     }
 }
