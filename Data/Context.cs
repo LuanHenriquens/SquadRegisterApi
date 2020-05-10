@@ -8,5 +8,6 @@ namespace SquadRegisterApi.Data
         public Context(DbContextOptions<Context> options) : base(options){}
 
         public DbSet<Squad> Squad {get; set;}
+        public DbSet<Member> Member {get; set;}
     }
 }

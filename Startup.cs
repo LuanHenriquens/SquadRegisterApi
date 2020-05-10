@@ -41,6 +41,7 @@ namespace SquadRegisterApi
         private IServiceCollection Container(IServiceCollection services)
         {
             services.AddScoped<ISquadService, SquadService>();
+            services.AddScoped<IMemberService, MemberService>();
             return services;
         }
 
