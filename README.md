@@ -1,6 +1,6 @@
 # SquadRegisterApi
 
-#### Api de aplicação responsavel por cadastro de Squads e Membros participantes dessas Squads
+#### Api de aplicação responsavel por cadastro e gerenciamento de Squads e dos Membros participantes dessas Squads
 ##### Repositório do front desse projeto: squad-front
 ##### Versão do projeto: 0.1.0
 
