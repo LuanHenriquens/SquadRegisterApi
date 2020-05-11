@@ -31,7 +31,7 @@ namespace SquadRegisterApi.Controllers
     }
 
     [HttpGet("GetBySquad")]
-    public async Task<ActionResult<Member>> GetByName(int squad_id)
+    public async Task<ActionResult<Member>> GetBySquad(int squad_id)
     {
       try
       {
